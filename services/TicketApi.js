@@ -7,9 +7,11 @@ module.exports = {
                 'Authorization': `Bearer ${user.token}`
             };
             const result = await axios.put(`${TICKET_API}/buyticket/${id}`, {quantity}, {headers});
+            
             return result.data;
         } catch (error) {
-            return error;
+            if(error.response.data.message === "Ingresso desabilitado") throw 'Ingresso desabilitado'
+            throw 'Ocorreu um erro ao finalizar a compra';
         }
     }
 }

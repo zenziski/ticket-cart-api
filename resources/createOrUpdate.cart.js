@@ -6,7 +6,6 @@ module.exports = {
     handler: async (req, res) => {
         const Cart = require('../models/Cart');
         const userId = req.user._id;
-        console.log(req.user);
 
         const { ticketId, quantity } = req.body;
 
@@ -32,7 +31,7 @@ module.exports = {
                 cart.on_cart.push({ticketId, quantity})
             }
 
-            let updatedCart = await Cart.updateOne({ user: userId }, {
+            await Cart.updateOne({ user: userId }, {
                 $set: {
                     on_cart: cart.on_cart
                 }
